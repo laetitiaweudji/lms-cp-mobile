@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { HeroBanner } from "@/components/ui/HeroBanner";
 import { StatCard } from "@/components/ui/StatCard";
 import { Badge } from "@/components/ui/Badge";
+import { AudioPlayerControl } from "@/components/ui/AudioPlayerControl";
 import { useCourseDetail } from "@/hooks/teacher/useCourseDetail";
 import { formatDate } from "@/utils/date";
 
@@ -107,17 +108,18 @@ export default function TeacherCourseDetail() {
             <Text className="text-sm text-text-muted">No recordings found for this course.</Text>
           ) : (
             recordings.map((r) => (
-              <Pressable
-                key={r.id}
-                onPress={() => r.file_url && Linking.openURL(r.file_url)}
-                className="rounded-2xl bg-card p-4 shadow-sm"
-              >
+              <View key={r.id} className="gap-2 rounded-2xl bg-card p-4 shadow-sm">
                 <Text className="text-sm font-semibold text-text-primary">{r.title}</Text>
                 {r.description && (
                   <Text className="text-sm text-text-secondary">{r.description}</Text>
                 )}
+                {r.file_url ? (
+                  <AudioPlayerControl uri={r.file_url} />
+                ) : (
+                  <Text className="text-xs text-text-muted">No audio file attached</Text>
+                )}
                 <Text className="text-xs text-text-muted">{formatDate(r.created_at)}</Text>
-              </Pressable>
+              </View>
             ))
           )}
         </View>

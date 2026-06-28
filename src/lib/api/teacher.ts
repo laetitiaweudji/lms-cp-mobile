@@ -249,3 +249,18 @@ export function uploadMaterial(payload: UploadMaterialPayload) {
   formData.append("course_id", payload.course_id);
   return apiClient.upload<{ success: boolean; url: string }>("/teacher/materials", formData);
 }
+
+export type UploadRecordingPayload = {
+  file: { uri: string; name: string; type: string };
+  title: string;
+  course_id: string;
+  description?: string;
+};
+export function uploadRecording(payload: UploadRecordingPayload) {
+  const formData = new FormData();
+  formData.append("file", payload.file as unknown as Blob);
+  formData.append("title", payload.title);
+  formData.append("course_id", payload.course_id);
+  if (payload.description) formData.append("description", payload.description);
+  return apiClient.upload<{ success: boolean; url: string }>("/teacher/recordings", formData);
+}

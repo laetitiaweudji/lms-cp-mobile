@@ -5,8 +5,10 @@ import { FileText } from "lucide-react-native";
 import { Header } from "@/components/layout/Header";
 import { HeroBanner } from "@/components/ui/HeroBanner";
 import { Badge } from "@/components/ui/Badge";
+import { AudioPlayerControl } from "@/components/ui/AudioPlayerControl";
 import { SelectField } from "@/components/forms/SelectField";
 import { MaterialUploadForm } from "@/components/forms/MaterialUploadForm";
+import { RecordingUploadForm } from "@/components/forms/RecordingUploadForm";
 import { useCourses } from "@/hooks/teacher/useCourses";
 import { useCourseMaterials, useCourseRecordings } from "@/hooks/teacher/useCourseRecordingsAndMaterials";
 import { formatDate } from "@/utils/date";
@@ -38,9 +40,9 @@ export default function TeacherRecordings() {
       >
         <HeroBanner eyebrow="Recordings" title="Audio Recordings" />
 
-        <View className="gap-2 rounded-2xl bg-card p-4 shadow-sm">
+        <View className="gap-3 rounded-2xl bg-card p-4 shadow-sm">
           <Text className="text-base font-bold text-text-primary">Record New Lesson</Text>
-          <Text className="text-sm text-text-muted">Audio recording is coming soon.</Text>
+          <RecordingUploadForm courses={courses} />
         </View>
 
         <View className="gap-3 rounded-2xl bg-card p-4 shadow-sm">
@@ -66,15 +68,16 @@ export default function TeacherRecordings() {
             <Text className="text-sm text-text-muted">No recordings found for this course.</Text>
           ) : (
             recordings.map((r) => (
-              <Pressable
-                key={r.id}
-                onPress={() => r.file_url && Linking.openURL(r.file_url)}
-                className="gap-1 rounded-2xl bg-card p-4 shadow-sm"
-              >
+              <View key={r.id} className="gap-2 rounded-2xl bg-card p-4 shadow-sm">
                 <Badge label={r.courses.title} />
                 <Text className="text-sm font-semibold text-text-primary">{r.title}</Text>
+                {r.file_url ? (
+                  <AudioPlayerControl uri={r.file_url} />
+                ) : (
+                  <Text className="text-xs text-text-muted">No audio file attached</Text>
+                )}
                 <Text className="text-xs text-text-muted">{formatDate(r.created_at)}</Text>
-              </Pressable>
+              </View>
             ))
           )}
         </View>
