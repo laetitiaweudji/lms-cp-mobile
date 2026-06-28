@@ -3,7 +3,8 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "lms-cp-mobile",
-  slug: "lms-cp-mobile",
+  slug: "lms-cp-portal",
+  owner: "laetitia-weudjis-team",
   scheme: "scpportal",
   version: "1.0.0",
   orientation: "portrait",
@@ -38,5 +39,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,
     supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
     apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+    eas: {
+      projectId: "04771b35-4c19-42dc-926b-fa8b4f0b53a3",
+    },
   },
 });

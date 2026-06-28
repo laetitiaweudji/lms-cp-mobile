@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 20.4.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://hrpxcqifipkqljlkfcdf.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_9Ckhr094aQ9isoBgCBoBuA_HYvHgb9o",
+        "EXPO_PUBLIC_API_BASE_URL": "https://lms-scp.vercel.app"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://hrpxcqifipkqljlkfcdf.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_9Ckhr094aQ9isoBgCBoBuA_HYvHgb9o",
+        "EXPO_PUBLIC_API_BASE_URL": "https://lms-scp.vercel.app"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://hrpxcqifipkqljlkfcdf.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_9Ckhr094aQ9isoBgCBoBuA_HYvHgb9o",
+        "EXPO_PUBLIC_API_BASE_URL": "https://lms-scp.vercel.app"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
