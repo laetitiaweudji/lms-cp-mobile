@@ -2,6 +2,7 @@ import "../global.css";
 
 import { useEffect, useState } from "react";
 import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -25,6 +26,8 @@ import {
   DMSans_600SemiBold,
 } from "@expo-google-fonts/dm-sans";
 import { AuthProvider } from "@/hooks/auth/AuthProvider";
+import { ThemeProvider } from "@/theme/ThemeProvider";
+import { BottomSheetProvider } from "@/components/sheets/BottomSheetProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -57,10 +60,16 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-      </AuthProvider>
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ThemeProvider>
+            <BottomSheetProvider>
+              <Stack screenOptions={{ headerShown: false }} />
+            </BottomSheetProvider>
+          </ThemeProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
