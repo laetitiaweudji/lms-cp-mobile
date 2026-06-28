@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --role-sidebar-bg: #0f172a;
+  --role-sidebar-text: #e2e8f0;
+  --role-accent: #4f46e5;
+  --role-light-bg: #eef2ff;
+  --role-badge-bg: #f5f3ff;
+  --role-badge-text: #6d28d9;
+}
