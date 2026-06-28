@@ -1,14 +1,28 @@
-import { Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
+import { Redirect } from "expo-router";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 export default function Index() {
-  return (
-    <View className="flex-1 items-center justify-center bg-page">
-      <Text className="font-sans text-3xl font-bold text-text-primary">
-        SCP Portal
-      </Text>
-      <Text className="mt-2 text-base text-text-secondary">
-        Phase 0 scaffold is alive.
-      </Text>
-    </View>
-  );
+  const { status, profile } = useAuth();
+
+  if (status === "loading") {
+    return (
+      <View className="flex-1 items-center justify-center bg-page">
+        <ActivityIndicator size="large" color="#4f46e5" />
+      </View>
+    );
+  }
+
+  if (status !== "authenticated" || !profile) {
+    return <Redirect href="/(auth)/login" />;
+  }
+
+  switch (profile.role) {
+    case "teacher":
+      return <Redirect href="/(teacher)" />;
+    case "student":
+      return <Redirect href="/(student)" />;
+    case "parent":
+      return <Redirect href="/(parent)" />;
+  }
 }

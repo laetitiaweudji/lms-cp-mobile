@@ -23,6 +23,7 @@ import {
   DMSans_500Medium,
   DMSans_600SemiBold,
 } from "@expo-google-fonts/dm-sans";
+import { AuthProvider } from "@/hooks/auth/AuthProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,5 +54,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <AuthProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </AuthProvider>
+  );
 }
