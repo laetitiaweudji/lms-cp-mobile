@@ -24,6 +24,7 @@ export type StudentAnnouncement = {
 
 export type StudentGrade = {
   id: string;
+  assessment_name: string;
   assessment_type: string;
   score: number;
   max_score: number;

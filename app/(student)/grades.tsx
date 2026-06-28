@@ -78,9 +78,11 @@ export default function StudentGrades() {
             <View className="mx-4 flex-row items-center justify-between rounded-2xl bg-card p-4 shadow-sm">
               <View className="flex-1">
                 <Text className="text-base font-semibold text-text-primary">
-                  {item.courses.title}
+                  {item.assessment_name}
                 </Text>
-                <Text className="text-xs text-text-muted">{item.assessment_type}</Text>
+                <Text className="text-xs text-text-muted">
+                  {item.courses.title} · {item.assessment_type}
+                </Text>
               </View>
               <View className="items-end">
                 <Text

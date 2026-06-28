@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import {
-  RecordingPresets,
   requestRecordingPermissionsAsync,
   setAudioModeAsync,
   useAudioRecorder,
@@ -10,6 +9,11 @@ import {
 import { AudioPlayerControl } from "@/components/ui/AudioPlayerControl";
 import { SelectField } from "./SelectField";
 import { useUploadRecording } from "@/hooks/teacher/useRecordingMutations";
+import {
+  RECORDING_FILE_EXTENSION,
+  RECORDING_MIME_TYPE,
+  RECORDING_OPTIONS,
+} from "@/utils/recordingFormat";
 import type { TeacherCourse } from "@/types/teacher";
 
 type RecordingUploadFormProps = {
@@ -17,7 +21,7 @@ type RecordingUploadFormProps = {
 };
 
 export function RecordingUploadForm({ courses }: RecordingUploadFormProps) {
-  const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
+  const recorder = useAudioRecorder(RECORDING_OPTIONS);
   const recorderState = useAudioRecorderState(recorder);
 
   const [courseId, setCourseId] = useState<string | null>(null);
@@ -61,7 +65,11 @@ export function RecordingUploadForm({ courses }: RecordingUploadFormProps) {
         course_id: courseId,
         title,
         description: description || undefined,
-        file: { uri: recordedUri, name: `recording-${Date.now()}.m4a`, type: "audio/m4a" },
+        file: {
+          uri: recordedUri,
+          name: `recording-${Date.now()}.${RECORDING_FILE_EXTENSION}`,
+          type: RECORDING_MIME_TYPE,
+        },
       },
       {
         onSuccess: () => {

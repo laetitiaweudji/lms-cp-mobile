@@ -128,9 +128,11 @@ export default function StudentDashboard() {
               >
                 <View className="flex-1">
                   <Text className="text-sm font-semibold text-text-primary">
-                    {grade.courses.title}
+                    {grade.assessment_name}
                   </Text>
-                  <Text className="text-xs text-text-muted">{grade.assessment_type}</Text>
+                  <Text className="text-xs text-text-muted">
+                    {grade.courses.title} · {grade.assessment_type}
+                  </Text>
                 </View>
                 <ScoreBadge score={grade.score} maxScore={grade.max_score} />
               </View>

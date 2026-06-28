@@ -54,22 +54,19 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     body,
   });
 
-  if (response.status === 401) {
-    // Session is invalid/expired server-side; sign out so every role-guarded
-    // route's <Redirect> kicks the user back to login automatically.
-    await supabase.auth.signOut();
-    throw new ApiError("Unauthorized", 401);
-  }
-
   const text = await response.text();
   const data = text ? JSON.parse(text) : null;
+  const message = data && typeof data.error === "string" ? data.error : null;
+
+  // Session invalid/expired, or the account was disabled mid-session: sign out
+  // so every role-guarded route's <Redirect> kicks the user back to login.
+  if (response.status === 401 || (response.status === 403 && message === "Account disabled")) {
+    await supabase.auth.signOut();
+    throw new ApiError(message ?? "Unauthorized", response.status);
+  }
 
   if (!response.ok) {
-    const message =
-      data && typeof data.error === "string"
-        ? data.error
-        : `Request failed with status ${response.status}`;
-    throw new ApiError(message, response.status);
+    throw new ApiError(message ?? `Request failed with status ${response.status}`, response.status);
   }
 
   return data as T;
