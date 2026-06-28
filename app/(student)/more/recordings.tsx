@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Linking, Pressable, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { Mic2 } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -33,14 +33,16 @@ export default function StudentRecordings() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={Mic2}
               title="No recordings found."
               message="Uploaded course lectures will appear here."
             />
-          ) : (
-            <View />
           )
         }
         ListHeaderComponent={

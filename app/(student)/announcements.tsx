@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { Megaphone } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/layout/Header";
@@ -34,14 +34,16 @@ export default function StudentAnnouncements() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={Megaphone}
               title="No announcements found."
               message="Updates will appear here when teachers post them."
             />
-          ) : (
-            <View />
           )
         }
         renderItem={({ item }) => {

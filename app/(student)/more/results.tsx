@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Linking, Pressable, Text, View } from "react-native";
 import { Award } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/layout/Header";
@@ -31,14 +31,16 @@ export default function StudentResults() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={Award}
               title="No official results found."
               message="Uploaded final results will appear here once published."
             />
-          ) : (
-            <View />
           )
         }
         ListHeaderComponent={

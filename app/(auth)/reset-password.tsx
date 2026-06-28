@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, TextInput, View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { Text, View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { router, useLocalSearchParams } from "expo-router";
 import { PasswordField } from "@/components/ui/PasswordField";

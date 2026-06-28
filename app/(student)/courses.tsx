@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
 import { router } from "expo-router";
 import { BookOpen, Search } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,14 +37,16 @@ export default function StudentCourses() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={BookOpen}
               title="No courses found."
               message="Your enrolled courses will appear here."
             />
-          ) : (
-            <View />
           )
         }
         ListHeaderComponent={

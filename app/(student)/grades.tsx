@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { ClipboardList } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -45,14 +45,16 @@ export default function StudentGrades() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={ClipboardList}
               title="No grades found."
               message="Your grades will appear here once teachers publish them."
             />
-          ) : (
-            <View />
           )
         }
         ListHeaderComponent={

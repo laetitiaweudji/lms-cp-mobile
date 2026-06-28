@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Linking, Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Linking, Pressable, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { FileText } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -33,14 +33,16 @@ export default function StudentMaterials() {
         totalPages={totalPages(data?.total ?? 0, data?.pageSize ?? 20)}
         onPageChange={setPage}
         emptyState={
-          !isLoading ? (
+          isLoading ? (
+            <View className="items-center py-12">
+              <ActivityIndicator size="large" color="#2563eb" />
+            </View>
+          ) : (
             <EmptyState
               icon={FileText}
               title="No materials found."
               message="Your course materials will appear here once uploaded."
             />
-          ) : (
-            <View />
           )
         }
         ListHeaderComponent={
