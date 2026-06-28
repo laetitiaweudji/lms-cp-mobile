@@ -1,12 +1,18 @@
 export const queryKeys = {
   teacher: {
     stats: ["teacher", "stats"] as const,
-    announcements: (page: number) => ["teacher", "announcements", page] as const,
-    courses: ["teacher", "courses"] as const,
-    courseDetail: (courseId: string) => ["teacher", "courses", courseId] as const,
-    grades: (courseId?: string) => ["teacher", "grades", courseId] as const,
-    recordings: (courseId?: string) => ["teacher", "recordings", courseId] as const,
-    materials: (courseId?: string) => ["teacher", "materials", courseId] as const,
+    courses: (teacherId: string) => ["teacher", "courses", teacherId] as const,
+    announcementCount: (teacherId: string) => ["teacher", "announcementCount", teacherId] as const,
+    announcements: (courseIds: string[]) => ["teacher", "announcements", courseIds] as const,
+    courseDetail: (courseId: string) => ["teacher", "courseDetail", courseId] as const,
+    grades: (teacherId: string) => ["teacher", "grades", teacherId] as const,
+    courseStudents: (courseId: string) => ["teacher", "courseStudents", courseId] as const,
+    studentGradesInCourse: (teacherId: string, courseId: string, studentId: string) =>
+      ["teacher", "studentGradesInCourse", teacherId, courseId, studentId] as const,
+    recordings: (teacherId: string, courseId?: string) =>
+      ["teacher", "recordings", teacherId, courseId] as const,
+    materials: (teacherId: string, courseId?: string) =>
+      ["teacher", "materials", teacherId, courseId] as const,
   },
   student: {
     dashboard: ["student", "dashboard"] as const,
