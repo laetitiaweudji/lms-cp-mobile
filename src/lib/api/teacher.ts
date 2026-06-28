@@ -236,3 +236,16 @@ export function updateGrade(payload: UpdateGradePayload) {
 export function deleteGrade(id: string) {
   return apiClient.delete("/teacher/grades", { id });
 }
+
+export type UploadMaterialPayload = {
+  file: { uri: string; name: string; type: string };
+  title: string;
+  course_id: string;
+};
+export function uploadMaterial(payload: UploadMaterialPayload) {
+  const formData = new FormData();
+  formData.append("file", payload.file as unknown as Blob);
+  formData.append("title", payload.title);
+  formData.append("course_id", payload.course_id);
+  return apiClient.upload<{ success: boolean; url: string }>("/teacher/materials", formData);
+}

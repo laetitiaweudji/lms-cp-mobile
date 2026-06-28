@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { HeroBanner } from "@/components/ui/HeroBanner";
 import { Badge } from "@/components/ui/Badge";
 import { SelectField } from "@/components/forms/SelectField";
+import { MaterialUploadForm } from "@/components/forms/MaterialUploadForm";
 import { useCourses } from "@/hooks/teacher/useCourses";
 import { useCourseMaterials, useCourseRecordings } from "@/hooks/teacher/useCourseRecordingsAndMaterials";
 import { formatDate } from "@/utils/date";
@@ -42,9 +43,9 @@ export default function TeacherRecordings() {
           <Text className="text-sm text-text-muted">Audio recording is coming soon.</Text>
         </View>
 
-        <View className="gap-2 rounded-2xl bg-card p-4 shadow-sm">
+        <View className="gap-3 rounded-2xl bg-card p-4 shadow-sm">
           <Text className="text-base font-bold text-text-primary">Upload Additional Material</Text>
-          <Text className="text-sm text-text-muted">File uploads are coming soon.</Text>
+          <MaterialUploadForm courses={courses} />
         </View>
 
         <SelectField
