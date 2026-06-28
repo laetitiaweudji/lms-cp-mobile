@@ -1,15 +1,17 @@
+import type { ReactNode } from "react";
 import { FlatList, Pressable, RefreshControl, Text, View, type ListRenderItem } from "react-native";
 
 type PaginatedListProps<T> = {
   data: T[];
   renderItem: ListRenderItem<T>;
   keyExtractor: (item: T) => string;
-  emptyState: React.ReactNode;
+  emptyState: ReactNode;
   isRefreshing?: boolean;
   onRefresh?: () => void;
   page?: number;
   totalPages?: number;
   onPageChange?: (page: number) => void;
+  ListHeaderComponent?: ReactNode;
 };
 
 export function PaginatedList<T>({
@@ -22,6 +24,7 @@ export function PaginatedList<T>({
   page = 1,
   totalPages = 1,
   onPageChange,
+  ListHeaderComponent,
 }: PaginatedListProps<T>) {
   return (
     <FlatList
@@ -31,6 +34,7 @@ export function PaginatedList<T>({
       refreshControl={
         onRefresh ? <RefreshControl refreshing={!!isRefreshing} onRefresh={onRefresh} /> : undefined
       }
+      ListHeaderComponent={ListHeaderComponent ? () => <>{ListHeaderComponent}</> : undefined}
       ListEmptyComponent={() => <>{emptyState}</>}
       contentContainerClassName="gap-3 pb-4"
       ListFooterComponent={
