@@ -54,9 +54,9 @@ export default function TeacherCourseDetail() {
             students.map((s) => (
               <View key={s.id} className="rounded-2xl bg-card p-4 shadow-sm">
                 <Text className="text-sm font-semibold text-text-primary">
-                  {s.profiles.full_name}
+                  {s.profiles?.full_name ?? "Unknown student"}
                 </Text>
-                <Text className="text-xs text-text-muted">{s.profiles.email}</Text>
+                <Text className="text-xs text-text-muted">{s.profiles?.email ?? ""}</Text>
                 <Text className="text-xs text-text-muted">Enrolled {formatDate(s.created_at)}</Text>
               </View>
             ))

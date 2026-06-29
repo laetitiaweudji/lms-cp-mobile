@@ -55,7 +55,9 @@ export default function ParentDashboard() {
           ) : (
             announcements.slice(0, 4).map((a) => (
               <View key={a.id} className="gap-1 border-t border-neutral-100 pt-2">
-                <Text className="text-xs font-medium text-primary-600">{a.courses.title}</Text>
+                <Text className="text-xs font-medium text-primary-600">
+                  {a.courses?.title ?? "General"}
+                </Text>
                 <Text className="text-sm font-semibold text-text-primary">{a.title}</Text>
                 <Text className="text-xs text-text-muted">{formatDate(a.created_at)}</Text>
               </View>
@@ -85,9 +87,9 @@ export default function ParentDashboard() {
             >
               <View>
                 <Text className="text-sm font-semibold text-text-primary">
-                  {child.profiles.full_name}
+                  {child.profiles?.full_name ?? "Unknown student"}
                 </Text>
-                <Text className="text-xs text-text-muted">{child.profiles.email}</Text>
+                <Text className="text-xs text-text-muted">{child.profiles?.email ?? ""}</Text>
               </View>
               <Pressable
                 onPress={() =>

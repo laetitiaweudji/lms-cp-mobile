@@ -57,7 +57,7 @@ export default function ParentAnnouncements() {
         }
         renderItem={({ item }) => (
           <View className="mx-4 gap-2 rounded-2xl bg-card p-4 shadow-sm">
-            <Badge label={item.courses.title} />
+            <Badge label={item.courses?.title ?? "General"} />
             <Text className="text-base font-semibold text-text-primary">{item.title}</Text>
             {item.content && (
               <Text className="text-sm text-text-secondary" numberOfLines={2}>

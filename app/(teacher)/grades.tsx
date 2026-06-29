@@ -117,13 +117,15 @@ export default function TeacherGrades() {
               students.map((s) => (
                 <Pressable
                   key={s.student_id}
-                  onPress={() => openStudentGrades(s.student_id, s.profiles.full_name)}
+                  onPress={() =>
+                    openStudentGrades(s.student_id, s.profiles?.full_name ?? "Unknown student")
+                  }
                   className="flex-row items-center justify-between rounded-xl bg-page p-3 active:opacity-80"
                 >
                   <Text className="text-sm font-medium text-text-primary">
-                    {s.profiles.full_name}
+                    {s.profiles?.full_name ?? "Unknown student"}
                   </Text>
-                  <Text className="text-xs text-text-muted">{s.profiles.email}</Text>
+                  <Text className="text-xs text-text-muted">{s.profiles?.email ?? ""}</Text>
                 </Pressable>
               ))
             ))}
@@ -142,8 +144,8 @@ export default function TeacherGrades() {
                   {g.assessment_name}
                 </Text>
                 <View className="flex-row gap-2">
-                  <Badge label={g.courses.title} />
-                  <Badge label={g.profiles.full_name} />
+                  <Badge label={g.courses?.title ?? "Unknown course"} />
+                  <Badge label={g.profiles?.full_name ?? "Unknown student"} />
                   <Badge label={g.assessment_type} />
                 </View>
                 <View className="flex-row items-center justify-between">

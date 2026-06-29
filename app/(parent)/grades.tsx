@@ -66,7 +66,10 @@ export default function ParentGrades() {
               label="Student"
               placeholder="Select a student"
               value={studentId}
-              options={children.map((c) => ({ label: c.profiles.full_name, value: c.student_id }))}
+              options={children.map((c) => ({
+                label: c.profiles?.full_name ?? "Unknown student",
+                value: c.student_id,
+              }))}
               onChange={setStudentId}
             />
             {studentId && (
@@ -81,10 +84,10 @@ export default function ParentGrades() {
           <View className="mx-4 flex-row items-center justify-between rounded-2xl bg-card p-4 shadow-sm">
             <View className="flex-1">
               <Text className="text-sm font-semibold text-text-primary">
-                {item.profiles.full_name}
+                {item.profiles?.full_name ?? "Unknown student"}
               </Text>
               <Text className="text-xs text-text-muted">
-                {item.courses.title} · {item.assessment_type}
+                {item.courses?.title ?? "Unknown course"} · {item.assessment_type}
               </Text>
               <Text className="text-xs text-text-muted">{formatDate(item.created_at)}</Text>
             </View>

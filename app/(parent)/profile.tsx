@@ -114,9 +114,9 @@ export default function ParentProfile() {
               >
                 <View>
                   <Text className="text-sm font-medium text-text-primary">
-                    {child.profiles.full_name}
+                    {child.profiles?.full_name ?? "Unknown student"}
                   </Text>
-                  <Text className="text-xs text-text-muted">{child.profiles.email}</Text>
+                  <Text className="text-xs text-text-muted">{child.profiles?.email ?? ""}</Text>
                 </View>
                 <Badge label="Student" bgColor="#f0fdfa" textColor="#0f766e" />
               </View>

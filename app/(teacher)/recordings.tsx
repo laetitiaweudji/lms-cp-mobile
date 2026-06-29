@@ -69,7 +69,7 @@ export default function TeacherRecordings() {
           ) : (
             recordings.map((r) => (
               <View key={r.id} className="gap-2 rounded-2xl bg-card p-4 shadow-sm">
-                <Badge label={r.courses.title} />
+                <Badge label={r.courses?.title ?? "Unknown course"} />
                 <Text className="text-sm font-semibold text-text-primary">{r.title}</Text>
                 {r.file_url ? (
                   <AudioPlayerControl uri={r.file_url} />

@@ -26,6 +26,10 @@ export type TeacherAnnouncement = {
   courses: { title: string } | null;
 };
 
+// courses/profiles below are nullable: Supabase returns null for a joined
+// relation when the related row doesn't exist or isn't visible under RLS.
+// Teacher-table RLS is explicitly unaudited (per backend team) beyond
+// `grades`, so these are guarded defensively even without a live repro.
 export type TeacherGrade = {
   id: string;
   assessment_name: string;
@@ -33,13 +37,13 @@ export type TeacherGrade = {
   score: number;
   max_score: number;
   created_at: string;
-  courses: { title: string };
-  profiles: { full_name: string };
+  courses: { title: string } | null;
+  profiles: { full_name: string } | null;
 };
 
 export type TeacherEnrollmentStudent = {
   student_id: string;
-  profiles: { id: string; full_name: string; email: string };
+  profiles: { id: string; full_name: string; email: string } | null;
 };
 
 export type TeacherCourseDetail = {
@@ -62,7 +66,7 @@ export type TeacherCourseDetail = {
   students: {
     id: string;
     created_at: string;
-    profiles: { id: string; full_name: string; email: string };
+    profiles: { id: string; full_name: string; email: string } | null;
   }[];
 };
 
@@ -73,7 +77,7 @@ export type TeacherRecording = {
   file_url: string | null;
   course_id: string;
   created_at: string;
-  courses: { title: string };
+  courses: { title: string } | null;
 };
 
 export type TeacherMaterial = {

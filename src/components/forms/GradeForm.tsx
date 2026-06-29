@@ -99,7 +99,10 @@ export function GradeForm({ courses, editing, editingId, onDone, onCancelEdit }:
         label="Student"
         placeholder={courseId ? "Select a student" : "Select a course first"}
         value={studentId}
-        options={students.map((s) => ({ label: s.profiles.full_name, value: s.student_id }))}
+        options={students.map((s) => ({
+          label: s.profiles?.full_name ?? "Unknown student",
+          value: s.student_id,
+        }))}
         onChange={setStudentId}
         disabled={isEditing || !courseId}
       />

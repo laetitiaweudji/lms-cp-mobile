@@ -32,9 +32,9 @@ export default function ParentChildren() {
               <View key={child.student_id} className="w-[47%] overflow-hidden rounded-2xl bg-card shadow-sm">
                 <LinearGradient colors={["#2563eb", "#4f46e5"]} className="gap-1 p-3">
                   <Text className="text-sm font-semibold text-text-inverse">
-                    {child.profiles.full_name}
+                    {child.profiles?.full_name ?? "Unknown student"}
                   </Text>
-                  <Text className="text-xs text-white/80">{child.profiles.email}</Text>
+                  <Text className="text-xs text-white/80">{child.profiles?.email ?? ""}</Text>
                 </LinearGradient>
                 <View className="gap-2 p-3">
                   <Pressable
