@@ -12,6 +12,12 @@ import { formatDate } from "@/utils/date";
 export default function StudentDashboard() {
   const { data, isLoading, isRefetching, refetch } = useDashboard();
 
+  const courseTitleById = useMemo(() => {
+    const map = new Map<string, string>();
+    (data?.enrollments ?? []).forEach((e) => map.set(e.course_id, e.courses.title));
+    return map;
+  }, [data]);
+
   const stats = useMemo(() => {
     const enrollments = data?.enrollments ?? [];
     const grades = data?.recentGrades ?? [];
@@ -73,7 +79,9 @@ export default function StudentDashboard() {
           ) : (
             data!.announcements.slice(0, 4).map((a) => (
               <View key={a.id} className="rounded-2xl bg-card p-4 shadow-sm">
-                <Text className="text-xs font-medium text-primary-600">{a.courses.title}</Text>
+                <Text className="text-xs font-medium text-primary-600">
+                  {a.course_id ? courseTitleById.get(a.course_id) ?? "General" : "General"}
+                </Text>
                 <Text className="mt-1 text-base font-semibold text-text-primary">{a.title}</Text>
                 <Text className="mt-1 text-xs text-text-muted">{formatDate(a.created_at)}</Text>
               </View>
@@ -128,11 +136,9 @@ export default function StudentDashboard() {
               >
                 <View className="flex-1">
                   <Text className="text-sm font-semibold text-text-primary">
-                    {grade.assessment_name}
+                    {courseTitleById.get(grade.course_id) ?? "Course"}
                   </Text>
-                  <Text className="text-xs text-text-muted">
-                    {grade.courses.title} · {grade.assessment_type}
-                  </Text>
+                  <Text className="text-xs text-text-muted">{grade.assessment_type}</Text>
                 </View>
                 <ScoreBadge score={grade.score} maxScore={grade.max_score} />
               </View>
